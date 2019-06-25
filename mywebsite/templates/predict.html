@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>predict</title>
+    </head>
+    <body>
+        <a href="/">Home</a>
+        
+        <h1>Prediksi label data</h1>
+        <form class="" action="" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            <label for="document">Data Prediksi</label>
+            <input type="file" name="document" value="" id="document">
+            <input type="submit" name="submit" value="submit">
+        </form>
+
+        {% if kirim %}
+        <table>
+            <tr>
+                <th>No</th>
+                {% for i in data.columns%}
+                <th>{{i}}</th>
+                {% endfor %}
+                <!-- <th>Class</th> -->
+            </tr>
+            {%for j in data.values%}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                {%for k in j%}
+                <td>{{k}}</td>
+                {%endfor%}
+                <!-- <td>{{result|slice:"forloop.counter0"}}</td> -->
+            </tr>
+            {%endfor%}
+        </table>
+        <!-- {{data}}<br> -->
+        <p>Class:</p>
+        <ol>
+            {%for l in result%}
+            <li>{{l}}</li>
+            {%endfor%}
+        </ol>
+        <!-- {{result}}
+        {{nama}} -->
+        {%endif%}
+    </body>
+</html>

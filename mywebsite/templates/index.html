@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <!-- <link rel="stylesheet" href="./boot.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <title>SVM | {{judul}}</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>Menentukan Topik Tugas Akhir Bagi Mahasiswa Tingkat Akhir Berdasarkan Rekam Nilai</h1><br>
+        <div class="row">
+            <div class="col-md-6 border">
+                <h2>pilih data Training</h2>
+                <form class="" action="" method="post" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <label for="document">pilih data Training</label>
+                    <input type="file" name="document" value="" id="document">
+                    <input type="submit" name="submit" value="submit">
+                </form>
+                <br>
+                {% if kirim%}
+                <a href="/accuracy/{{namaFile}}" style="margin-right:15px">Akurasi Klasifikasi</a>
+                <a href="/predict/{{namaFile}}">Prediksi data</a>
+                {% endif %}
+                <!-- <p>{{urlMedia}}</p> -->
+                <h3>akurasi = {{akurasi}} </h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            {% for n in data.columns %}
+                            <th>{{ n }}</th>
+                            {% endfor %}
+                        </tr>
+                        {%for i in data.values%}
+                        <tr>
+                            {% for j in i %}
+                            <td>{{j}}</td>
+                            {% endfor %}
+                        </tr>
+                        {%endfor%}
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6 border">
+                {% if kirim %}
+                <h2>prediksi data</h2>
+                <form class="" action="" method="post" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <label for="document1">Data Prediksi</label>
+                    <input type="file" name="document1" value="" id="document1">
+                    <input type="submit" name="submit" value="submit">
+                    <input type="text" name="namaFileTrain" value="{{file}}" >
+                </form>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>No</th>
+                            {% for i in data1.columns%}
+                            <th>{{i}}</th>
+                            {% endfor %}
+                            <!-- <th>Class</th> -->
+                        </tr>
+                        {%for j in data1.values%}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            {%for k in j%}
+                            <td>{{k}}</td>
+                            {%endfor%}
+                            <!-- <td>{{result|slice:"forloop.counter0"}}</td> -->
+                        </tr>
+                        {%endfor%}
+                    </table>
+                </div>
+                <!-- {{data}}<br> -->
+                <p>Class:</p>
+                <ol>
+                    {%for l in hasil%}
+                    <li>{{l}}</li>
+                    {%endfor%}
+                </ol>
+                <!-- {{result}}
+                    {{nama}} -->
+                {%endif%}
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
